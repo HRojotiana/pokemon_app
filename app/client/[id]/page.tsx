@@ -9,6 +9,9 @@ interface PokemonDetails {
     weight: string;
     types: { name: string; url: string }[];
     order: number;
+    sprites: {
+        front_default: string;
+    }
 }
 
 async function getPokemon(id: number) {
@@ -37,6 +40,12 @@ export default function AboutPokemon({
             {pokemon && (
                 <>
                     <h1>name: {pokemon.name}</h1>
+                    {pokemon.sprites && (
+                        <img
+                            src={pokemon.sprites.front_default}
+                            alt={pokemon.name}
+                        />
+                    )}
                     <p>height: {pokemon.height}</p>
                     <p>weight: {pokemon.weight}</p>
                     <p>order: {pokemon.order}</p>

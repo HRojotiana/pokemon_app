@@ -42,6 +42,7 @@ export default async function ServerComponentPokemon(){
                         </li>
                     ))}
                 </ul>
+                <button><Link href='/'>Return home</Link></button>
             </div>
         </div>
     );

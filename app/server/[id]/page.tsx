@@ -7,6 +7,9 @@ interface PokemonDetails {
     weight: string;
     types: { name: string; url: string }[];
     order: number;
+    sprites: {
+        front_default: string;
+    }
 }
 async function getPokemon(id: number) {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`);
@@ -27,6 +30,7 @@ export default async function AboutPokemon({
             {pokemon && (
                 <>
                     <h1>name: {pokemon.name}</h1>
+                    <img src={pokemon.sprites.front_default} alt="" />
                     <p>height: {pokemon.height}</p>
                     <p>weight: {pokemon.weight}</p>
                     <p>order: {pokemon.order}</p>

@@ -55,6 +55,7 @@ export default function CLientComponentPokemon() {
                     ))}
                 </ul>
             </div>
+            <button><Link href='/'>Return home</Link></button>
         </div>
     );
 
