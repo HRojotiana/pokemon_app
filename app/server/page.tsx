@@ -5,33 +5,46 @@ interface Pokemon{
     id: number;
     name: string;
     url: string;
-    image: "sprites.front_default";
+    image: string;
 }
 
 export default async function ServerComponentPokemon(){
     const response = await fetch(API_URL);
     const data = await response.json();
 
-    return(
+    const PokemonList: Pokemon[] = [];
+
+    for(const result of data.results){
+        const urlParts = result.url.split('/');
+        const id = parseInt(urlParts[urlParts.length - 2]);
+
+        const pokemonResponse = await fetch(result.url);
+        const pokemonData = await pokemonResponse.json();
+
+        PokemonList.push({
+            id: id,
+            name: pokemonData.name,
+            url: result.url,
+            image: pokemonData.sprites.front_default
+        });
+    }
+
+    return (
         <div>
             <div>
                 <h1>List of all pokemons</h1>
                 <ul>
-                {data.results.map((pokemon: Pokemon, index: number) => {
-                    const urlParts = pokemon.url.split('/');
-                    const id = urlParts[urlParts.length - 2];
-
-                    return (
+                    {PokemonList.map((pokemon: Pokemon, index: number) => (
                         <li key={index}>
                             <p>{pokemon.name}</p>
-                            <p>{id}</p>
+                            <p>{pokemon.id}</p>
                             <img src={pokemon.image} alt="" />
-                            <button><Link href={`/server/${id}`}>Show details</Link></button>
+                            <button><Link href={`/server/${pokemon.id}`}>Show details</Link></button>
                         </li>
-                    );
-                })}
+                    ))}
                 </ul>
             </div>
         </div>
-    )
+    );
+
 }
