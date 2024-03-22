@@ -49,7 +49,6 @@ export default function CLientComponentPokemon() {
                     {pokemonList.map((pokemon: Pokemon, index: number) => (
                         <li key={index}>
                             <p>{pokemon.name}</p>
-                            <p>{pokemon.id}</p>
                             <img src={pokemon.image} alt="" />
                             <button><Link href={`/client/${pokemon.id}`}>Show details</Link></button>
                         </li>
